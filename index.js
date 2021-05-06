@@ -26,6 +26,7 @@ app.get('/register', function (req, res) {
     var name = req.query.name
     var ip = req.clientIp
     settings[name] = ip
+    res.send("registered " + name + " " + ip)
 });
 
 app.use(function (req, res, next) {
