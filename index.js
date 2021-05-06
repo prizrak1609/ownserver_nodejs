@@ -9,4 +9,4 @@ app.get('/', function (req, res) {
   res.end();
 });
 
-app.listen(process.env.HOST || 8080);
+app.listen(process.env.PORT || 8080);
