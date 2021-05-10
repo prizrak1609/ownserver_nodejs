@@ -7,11 +7,11 @@ var settings = {}
 app.use(bodyParser.json()); // for parsing application/json
 app.use(bodyParser.urlencoded({ extended: true })); // for parsing application/x-www-form-urlencoded
 
-function getIP(name) {
+function getIP(name : string, port : string) {
     var ip = settings[name]
     if (net.isIPv6(ip))
        ip = "[" + ip + "]"
-    return "http://" + ip + ":8080"
+    return "http://" + ip + ":" + port
 }
 
 app.get('/', function (req, res) {
@@ -20,7 +20,7 @@ app.get('/', function (req, res) {
     if (!name) {
         name = "raspberry"
     }
-    res.redirect(getIP(name))
+    res.redirect(getIP(name, "8080"))
 });
 
 app.get('/register', function (req, res) {
@@ -30,8 +30,12 @@ app.get('/register', function (req, res) {
     res.send("registered " + name + " " + ip)
 });
 
+app.get('/torrent', function (req, res) {
+    res.redirect(getIP("raspberry", "8112"))
+});
+
 app.use(function (req, res, next) {
-    res.status(404).redirect(getIP("raspberry"))
+    res.status(404).redirect(getIP("raspberry", "8080"))
 })
 
 app.listen(process.env.PORT || 8080);
