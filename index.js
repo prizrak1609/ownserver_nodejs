@@ -20,7 +20,7 @@ app.get('/', function (req, res) {
     if (!name) {
         name = "raspberry"
     }
-    res.redirect(getIP(req.query.name))
+    res.redirect(getIP(name))
 });
 
 app.get('/register', function (req, res) {
