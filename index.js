@@ -16,6 +16,10 @@ function getIP(name) {
 
 app.get('/', function (req, res) {
   //res.send("name " + req.query.name + " address " + req.connection.remoteAddress)
+    var name = req.query.name
+    if (!name) {
+        name = "raspberry"
+    }
     res.redirect(getIP(req.query.name))
 });
 
