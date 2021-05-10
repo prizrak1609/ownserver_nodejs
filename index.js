@@ -7,7 +7,7 @@ var settings = {}
 app.use(bodyParser.json()); // for parsing application/json
 app.use(bodyParser.urlencoded({ extended: true })); // for parsing application/x-www-form-urlencoded
 
-function getIP(name : string, port : string) {
+function getIP(name, port) {
     var ip = settings[name]
     if (net.isIPv6(ip))
        ip = "[" + ip + "]"
