@@ -10,11 +10,7 @@ app.use(bodyParser.urlencoded({ extended: true })); // for parsing application/x
 
 app.use(express.static('views'))
 
-app.set('/views', path.join(__dirname, '/views'));
-app.engine('html', require('ejs').renderFile);
-app.set('view engine', 'html');
-
 app.get('/', function (req, res) {
-	res.render("index")
+	res.sendFile("views/index.html")
 });
 app.listen(process.env.PORT || 8080);
