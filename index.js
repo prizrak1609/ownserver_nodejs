@@ -1,41 +1,24 @@
 var app = require('express')();
 var bodyParser = require('body-parser');
-var net = require('net');
+var fs = require('fs');
+var path = require('path');
 
 var settings = {}
 
 app.use(bodyParser.json()); // for parsing application/json
 app.use(bodyParser.urlencoded({ extended: true })); // for parsing application/x-www-form-urlencoded
 
-function getIP(name, port) {
-    var ip = settings[name]
-    if (net.isIPv6(ip))
-       ip = "[" + ip + "]"
-    return "http://" + ip + ":" + port
-}
+app.engine('html', function(path, options, fn){
+  fs.readFile(path, 'utf8', function(err, str){
+    if (err) return fn(err);
+    fn(null, str);
+  });
+});
+
+app.set('views', path.join(__dirname, 'views'));
+app.set('view engine', 'html');
 
 app.get('/', function (req, res) {
-  //res.send("name " + req.query.name + " address " + req.connection.remoteAddress)
-    var name = req.query.name
-    if (!name) {
-        name = "raspberry"
-    }
-    res.redirect(getIP(name, "8080"))
+	res.render('index', { title: 'Markdown Example' });
 });
-
-app.get('/register', function (req, res) {
-    var name = req.query.name
-    var ip = req.query.ip
-    settings[name] = ip
-    res.send("registered " + name + " " + ip)
-});
-
-app.get('/torrent', function (req, res) {
-    res.redirect(getIP("raspberry", "8112"))
-});
-
-app.use(function (req, res, next) {
-    res.status(404).redirect(getIP("raspberry", "8080"))
-})
-
 app.listen(process.env.PORT || 8080);
