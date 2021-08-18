@@ -8,7 +8,7 @@ var settings = {}
 app.use(bodyParser.json()); // for parsing application/json
 app.use(bodyParser.urlencoded({ extended: true })); // for parsing application/x-www-form-urlencoded
 
-app.set('views', path.join(__dirname, 'views'));
+app.set('/views', path.join(__dirname, '/views'));
 app.engine('html', require('ejs').renderFile);
 app.set('view engine', 'html');
 
