@@ -1,4 +1,5 @@
-var app = require('express')();
+var express = require('express');
+var app = express();
 var bodyParser = require('body-parser');
 var fs = require('fs');
 var path = require('path');
@@ -12,6 +13,6 @@ app.get('/', function (req, res) {
 	res.sendFile(path.join(views, "index.html"))
 });
 
-app.use('/', express.static('views'));
+app.use(express.static('views'));
 
 app.listen(process.env.PORT || 8080);
