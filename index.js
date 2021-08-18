@@ -9,8 +9,6 @@ app.use(bodyParser.json()); // for parsing application/json
 app.use(bodyParser.urlencoded({ extended: true })); // for parsing application/x-www-form-urlencoded
 
 app.get('/', function (req, res) {
-	res.sendFile('index.html', {
-        root: path.join(__dirname, 'views')
-    })
+	res.sendFile(`${__dirname}/views/index.html`)
 });
 app.listen(process.env.PORT || 8080);
