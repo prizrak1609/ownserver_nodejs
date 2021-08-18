@@ -19,6 +19,8 @@ app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'html');
 
 app.get('/', function (req, res) {
-	res.render('index', { title: 'Markdown Example' });
+	res.sendFile('index.html', {
+        root: path.join(__dirname, 'views')
+    })
 });
 app.listen(process.env.PORT || 8080);
