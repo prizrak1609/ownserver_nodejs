@@ -11,4 +11,7 @@ var views = path.join(__dirname, 'views')
 app.get('/', function (req, res) {
 	res.sendFile(path.join(views, "index.html"))
 });
+
+app.use('/', express.static(views));
+
 app.listen(process.env.PORT || 8080);
